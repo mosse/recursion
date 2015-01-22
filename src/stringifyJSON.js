@@ -32,7 +32,7 @@ var stringify = function(input) {
 
 var objectStringify = function(objInput) {
 	if (objInput === null){
-		// Return 'null'
+		return 'null';
 	}
 	else if (Array.isArray(objInput)) {
 		return arrayStringify(objInput);
@@ -43,9 +43,14 @@ var objectStringify = function(objInput) {
 };
 
 var arrayStringify = function(arrInput) {
-    var result = "";
+    var start = "[";
 	for (var i = 0; i < arrInput.length; i++){
-		result = result.concat(arrInput[i]);
+		if (arrInput.length > 1 && i < arrInput.length - 1){
+			start = start.concat(stringify(arrInput[i]), "\,");
+		}
+		else {
+			start = start.concat(stringify(arrInput[i]));
+		}
 	}
-	return result;
+	return start.concat("]");
 };
